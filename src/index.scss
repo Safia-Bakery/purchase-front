@@ -92,6 +92,13 @@ table {
   }
 }
 
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar:horizontal {
+  height: 4px;
+}
+
 ::-webkit-scrollbar-track {
   background: #fff;
   border-radius: 10px;
@@ -104,4 +111,12 @@ table {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.slick-arrow {
+  display: none !important;
+
+  ::before {
+    display: none !important;
+  }
 }

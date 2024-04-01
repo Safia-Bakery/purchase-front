@@ -11,15 +11,15 @@ import family from "/images/family.png";
 import supplier from "/images/ss.png";
 import developing from "/images/eggPrep.png";
 import AdvantagesSlider from "src/components/AdvantagesSlider";
-import SuppliersSlider from "src/components/SuppliersSlider";
-import Container from "../../components/Container";
-import Button from "../../components/Button";
+import Container from "src/components/Container";
+import Button from "src/components/Button";
 import { useTranslation } from "react-i18next";
-import MainSlider from "../../components/MainSlider";
+import MainSlider from "src/components/MainSlider";
 import { Link } from "react-router-dom";
 import { useMemo } from "react";
 import { useAppSelector } from "src/store/rootConfig";
 import { tokenSelector } from "src/store/reducers/auth";
+import SuppliersSlider from "src/components/SuppliersSlider";
 
 const suppliersSlider = [
   { img: supplier, descr: "Здесь будет цитата от руководителся r" },
