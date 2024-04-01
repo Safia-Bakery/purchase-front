@@ -1,8 +1,17 @@
 import bg from "/images/login-bg.png";
 import logo from "/icons/safia-logo-white.svg";
 import { Outlet } from "react-router-dom";
+import { useAppSelector } from "src/store/rootConfig";
+import { tokenSelector } from "src/store/reducers/auth";
+import { useEffect } from "react";
 
 const AuthLayoout = () => {
+  const token = useAppSelector(tokenSelector);
+
+  useEffect(() => {
+    if (!!token) window.location.replace("/");
+  }, [token]);
+
   return (
     <section className="relative h-screen">
       <div className="z-50 fixed inset-0 bg-black opacity-80" />

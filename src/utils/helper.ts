@@ -1,13 +1,23 @@
 import { QueryClient } from "@tanstack/react-query";
 import { EPresetTimes } from "./types";
+import useQueryString from "src/hooks/useQueryString";
+
+export const dateTimeFormat = "DD.MM.YYYY HH:mm";
+export const itemsPerPage = 50;
 
 export const fixedString = (value: string) => {
   return value
     .split("")
     .filter((item) => {
-      return [" ", "-", "(", ")", "_"].indexOf(item) === -1;
+      return [" ", "-", "(", ")", "_", "+"].indexOf(item) === -1;
     })
     .join("");
+};
+
+export const handleIdx = (index: number) => {
+  const currentPage = Number(useQueryString("page")) || 1;
+  if (currentPage === 1) return index + 1;
+  else return index + 1 + itemsPerPage * (currentPage - 1);
 };
 
 export const is_email = (text: string) => {

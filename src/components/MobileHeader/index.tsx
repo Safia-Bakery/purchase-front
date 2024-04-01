@@ -5,7 +5,7 @@ import userIcon from "/icons/user.svg";
 import logoutIcon from "/icons/logout.svg";
 import Button from "../Button";
 import burger from "/icons/burger.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BtnTypes } from "src/utils/types";
 import { useTranslation } from "react-i18next";
 
@@ -16,28 +16,26 @@ interface Props {
 const MobileHeader = ({ items }: Props) => {
   const { t } = useTranslation();
   const [active, $active] = useState(false);
-  const [token, $token] = useState<string | null>(null);
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const toggleActive = () => $active((prev) => !prev);
 
-  const handleNavigate = () => {
-    if (!token) navigate("/auth/register");
-    else {
-      localStorage.removeItem("token");
-      window.location.reload();
+  const scroller = (href: string) => () => {
+    if (pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        document?.getElementById(href)?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
     }
+    document?.getElementById(href)?.scrollIntoView({ behavior: "smooth" });
   };
-
-  useEffect(() => {
-    $token(localStorage.getItem("token"));
-  }, []);
 
   return (
     <>
-      <button className="hidden lg:flex ml-6" onClick={handleNavigate}>
-        <img src={!token ? userIcon : logoutIcon} alt={"user"} />
-      </button>
+      <Link to={"/history"} className="hidden lg:flex ml-6">
+        <img src={userIcon} alt={"user"} />
+      </Link>
       <Button
         onClick={toggleActive}
         btnType={BtnTypes.white}
@@ -58,7 +56,7 @@ const MobileHeader = ({ items }: Props) => {
           <ul className="flex flex-col gap-x-8">
             {Object.entries(items)?.map((item: any) => (
               <li key={item[0]} className="my-1">
-                <Link to={`#${item[0]}`}>{item[1]}</Link>
+                <button onClick={scroller(item[0])}>{t(item[1])}</button>
               </li>
             ))}
           </ul>

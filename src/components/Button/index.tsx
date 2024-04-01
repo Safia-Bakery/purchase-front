@@ -15,12 +15,14 @@ type Props = {
 const Button = ({
   green,
   children,
+  type = "button",
   className = "",
   btnType = BtnTypes.primary,
   ...others
 }: Props) => {
   return (
     <button
+      type={type}
       className={`${className} ${cl(styles.btn, styles[btnType])}`}
       {...others}
     >

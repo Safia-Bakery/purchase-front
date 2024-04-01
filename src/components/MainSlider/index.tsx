@@ -1,26 +1,30 @@
-import { Swiper, SwiperSlide } from "swiper/react";
+import Slider from "react-slick";
 import slider from "/images/slider1.png";
-import { Autoplay, Pagination } from "swiper/modules";
 
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  swipe: true, // Enable swipe functionality
+  autoplay: true, // Enable autoplay
+  autoplaySpeed: 5000, // Set autoplay speed in milliseconds
+};
 export default function MainSlider() {
   return (
     <section className="lg:absolute inset-0 lg:h-[60svh]">
-      <Swiper
-        spaceBetween={0}
-        loop
-        modules={[Autoplay, Pagination]}
-        className="mySwiper"
-      >
+      <Slider {...settings}>
         {[slider, slider].map((item, idx) => (
-          <SwiperSlide key={idx}>
+          <div key={idx}>
             <img
               src={item}
               alt={"slider-img"}
               className="lg:h-[60svh] w-full min-h-[280px] object-center"
             />
-          </SwiperSlide>
+          </div>
         ))}
-      </Swiper>
+      </Slider>
     </section>
   );
 }

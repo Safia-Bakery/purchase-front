@@ -18,7 +18,7 @@ const localization = {
       reset_pass: "Сбросить пароль",
       will_you_cooperate: "Хочешь с нами сотрудничать?",
       phone_or_email: "Номер телефона или email",
-      next: "далее",
+      next: "Далее",
       phone: "Номер телефона",
       password: "Пароль",
       error: "Неправильное имя пользователя или пароль.",
@@ -52,7 +52,7 @@ const localization = {
       new: "Новый",
       in_process: "В обработке",
       closed: "Закрыт",
-      to_main: "на главную",
+      to_main: "На главную",
       empty_title: "Пока ничего нет!",
       empty_descr: "Перейти к покупкам",
       success_title: "Ваш заявка успешно принята!",
@@ -111,6 +111,9 @@ const localization = {
       suppliers: "Поставщикам",
       expectation: "Ожидания",
       cooperation: "Сотрудничество",
+
+      private_info: "Личные данные",
+      date_registering: "Дата регистрации",
     },
   },
   uz: {

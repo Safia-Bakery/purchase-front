@@ -1,4 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
+import { logoutHandler } from "src/store/reducers/auth";
+import { store } from "src/store/rootConfig";
 
 export const baseURL = "https://api.purchase.safiabakery.uz";
 
@@ -10,7 +12,7 @@ const invalidarr = ["undefined", "null", ""];
 
 baseApi.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token")?.toString();
+    const token = store.getState()?.auth.token;
 
     if (!!token) {
       if (config.headers) config.headers.Authorization = `Bearer ${token}`;
@@ -35,8 +37,7 @@ baseApi.interceptors.response.use(
 );
 
 function logoutUser() {
-  localStorage.removeItem("token");
-  // window.location.replace("/auth/login");
+  store?.dispatch(logoutHandler());
 }
 
 export default baseApi;

@@ -1,12 +1,12 @@
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Suspend from "./components/Suspend";
 import { lazy, useEffect } from "react";
 import { useAppSelector } from "./store/rootConfig";
 import { langSelector } from "./store/reducers/language";
 import i18n from "./localization";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Login = lazy(() => import("src/pages/Login"));
 const AuthLayoout = lazy(() => import("./components/AuthLayout"));
@@ -68,10 +68,17 @@ function App() {
               <Success />
             </Suspend>
           }
-          path="history"
+          path="success/:id"
         />
       </Route>
-      <Route path="/auth" element={<AuthLayoout />}>
+      <Route
+        path="/auth"
+        element={
+          <Suspend>
+            <AuthLayoout />
+          </Suspend>
+        }
+      >
         <Route
           element={
             <Suspend>

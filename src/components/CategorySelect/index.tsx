@@ -1,14 +1,18 @@
-import categoryMutation from "src/hooks/mutations/category";
 import BaseInput from "../BaseInputs";
 import MainSelect from "../BaseInputs/MainSelect";
 import useCategories from "src/hooks/useCategories";
+import { useTranslation } from "react-i18next";
+type Props = {
+  forwardedRef?: React.RefObject<HTMLInputElement>;
+};
 
-const CategorySelect = () => {
+const CategorySelect = ({ forwardedRef }: Props) => {
   const { data } = useCategories({});
+  const { t } = useTranslation();
 
   return (
-    <BaseInput label={"page.order.category"}>
-      <MainSelect values={data?.items} />
+    <BaseInput label={t("order_category")}>
+      <MainSelect forwardedRef={forwardedRef} values={data?.items} />
     </BaseInput>
   );
 };

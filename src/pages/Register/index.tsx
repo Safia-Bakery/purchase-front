@@ -8,11 +8,14 @@ import baseApi from "src/api/baseApi";
 import { Link, useNavigate } from "react-router-dom";
 import { fixedString } from "src/utils/helper";
 import { useTranslation } from "react-i18next";
+import registerMutation from "src/hooks/mutations/register";
+import Loading from "src/components/Loader";
 
 const Register = () => {
   const { t } = useTranslation();
   const { register, getValues, handleSubmit } = useForm();
   const navigate = useNavigate();
+  const { mutate, isPending } = registerMutation();
 
   const onSubmit = () => {
     const {
@@ -25,10 +28,10 @@ const Register = () => {
       address,
       password,
     } = getValues();
-    const customPhone = fixedString(phone);
-    baseApi
-      .post("/register", {
-        phone: customPhone,
+
+    mutate(
+      {
+        phone: fixedString(phone),
         name,
         surname,
         email,
@@ -36,9 +39,13 @@ const Register = () => {
         company_name,
         address,
         password,
-      })
-      .then(() => navigate(`/auth/verify?phone_number=${getValues("phone")}`))
-      .catch((e) => alert(e.message));
+      },
+      {
+        onSuccess: () =>
+          navigate(`/auth/verify?phone_number=${getValues("phone")}`),
+        onError: (e) => alert(e.message),
+      }
+    );
   };
 
   return (
@@ -111,6 +118,8 @@ const Register = () => {
       >
         {t("login")}
       </Link>
+
+      {isPending && <Loading />}
     </form>
   );
 };

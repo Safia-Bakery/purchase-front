@@ -1,12 +1,14 @@
 import Button from "src/components/Button";
 import { useForm } from "react-hook-form";
-import baseApi from "src/api/baseApi";
 import BaseInput from "src/components/BaseInputs";
 import MainInput from "src/components/BaseInputs/MainInput";
 import { useTranslation } from "react-i18next";
+import resetPasswordMutation from "src/hooks/mutations/resetPassword";
+import Loading from "src/components/Loader";
 
 const ResetPassword = () => {
   const { t } = useTranslation();
+  const { mutate, isPending } = resetPasswordMutation();
 
   const {
     register,
@@ -16,16 +18,13 @@ const ResetPassword = () => {
   } = useForm();
 
   const onSubmit = () => {
-    baseApi
-      .post("/reset", {
-        password: getValues("password"),
-      })
-      .then((res) => {
-        if (res?.data?.success) {
-          window.location.replace("/");
-        }
-      })
-      .catch((e) => alert(e.message));
+    mutate(
+      { password: getValues("password") },
+      {
+        onSuccess: () => window.location.replace("/"),
+        onError: (e) => alert(e.message),
+      }
+    );
   };
 
   return (
@@ -35,6 +34,7 @@ const ResetPassword = () => {
       </h1>
       <BaseInput error={errors.password}>
         <MainInput
+          autoFocus
           placeholder={t("password")}
           type="password"
           register={register("password", { required: t("required_field") })}
@@ -44,6 +44,7 @@ const ResetPassword = () => {
       <Button type="submit" className="w-full capitalize mt-4">
         {t("next")}
       </Button>
+      {isPending && <Loading />}
     </form>
   );
 };

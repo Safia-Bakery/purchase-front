@@ -10,11 +10,17 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { fixedString } from "src/utils/helper";
 import { useTranslation } from "react-i18next";
+import { useAppDispatch } from "src/store/rootConfig";
+import { loginHandler } from "src/store/reducers/auth";
+import loginMutation from "src/hooks/mutations/login";
+import Loading from "src/components/Loader";
 
 const LoginLayout = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [error, $error] = useState(false);
+  const dispatch = useAppDispatch();
+  const { mutate, isPending } = loginMutation();
 
   const {
     register,
@@ -25,22 +31,19 @@ const LoginLayout = () => {
 
   const onSubmit = () => {
     const { username, password } = getValues();
-    baseApi
-      .post(
-        "/login",
-        {
-          username: fixedString(username),
-          password,
-        },
-        { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
-      )
-      .then((res) => {
-        if (res?.status === 200) {
-          localStorage.setItem("token", res.data.access_token);
+    mutate(
+      {
+        username: fixedString(username),
+        password,
+      },
+      {
+        onSuccess: ({ data }: any) => {
+          dispatch(loginHandler(data.access_token));
           navigate("/");
-        }
-      })
-      .catch(() => $error(true));
+        },
+        onError: () => $error(true),
+      }
+    );
   };
 
   return (
@@ -51,6 +54,7 @@ const LoginLayout = () => {
       <img src={logo} alt={"safia-logo"} className="mx-auto lb:mb-10 mb-3" />
       <BaseInput error={errors.username}>
         <MaskedInput
+          autoFocus
           placeholder={t("phone")}
           defaultValue={998}
           register={register("username", { required: t("required_field") })}
@@ -84,6 +88,8 @@ const LoginLayout = () => {
       >
         {t("register")}
       </Link>
+
+      {isPending && <Loading />}
     </form>
   );
 };

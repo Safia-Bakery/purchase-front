@@ -17,6 +17,9 @@ import Button from "../../components/Button";
 import { useTranslation } from "react-i18next";
 import MainSlider from "../../components/MainSlider";
 import { Link } from "react-router-dom";
+import { useMemo } from "react";
+import { useAppSelector } from "src/store/rootConfig";
+import { tokenSelector } from "src/store/reducers/auth";
 
 const suppliersSlider = [
   { img: supplier, descr: "Здесь будет цитата от руководителся r" },
@@ -56,6 +59,11 @@ const advantageSlideArr = [
 
 const Home = () => {
   const { t } = useTranslation();
+  const token = useAppSelector(tokenSelector);
+
+  const renderUrl = useMemo(() => {
+    return !token ? "/auth/login" : "cooperate";
+  }, [token]);
 
   return (
     <>
@@ -70,7 +78,7 @@ const Home = () => {
               <p className="md:max-w-[430px] w-full text-textGray lg:my-6 ">
                 {t("description")}
               </p>
-              <Link to="/cooperate">
+              <Link to={renderUrl}>
                 <Button className="w-64 lg:mt-0 mt-3">
                   {t("send_request")}
                 </Button>
@@ -228,7 +236,7 @@ const Home = () => {
 
               <p className="mt-10 mb-14 max-w-96">{t("cooperate_descr")}</p>
 
-              <Link to="/cooperate">
+              <Link to={renderUrl}>
                 <Button className="w-full">{t("send_request")}</Button>
               </Link>
             </div>

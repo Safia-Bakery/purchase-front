@@ -8,7 +8,6 @@ interface Body {
 }
 
 const categoryMutation = () => {
-  console.log("first");
   return useMutation({
     mutationKey: ["post_categories"],
     mutationFn: (body: Body) =>

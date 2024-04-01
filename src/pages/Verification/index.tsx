@@ -8,6 +8,10 @@ import useQueryString from "src/hooks/useQueryString";
 import { useNavigate } from "react-router-dom";
 import { fixedString } from "src/utils/helper";
 import { useTranslation } from "react-i18next";
+import verifyMutation from "src/hooks/mutations/verify";
+import { useAppDispatch } from "src/store/rootConfig";
+import Loading from "src/components/Loader";
+import { loginHandler } from "src/store/reducers/auth";
 
 const Verification = () => {
   const { t } = useTranslation();
@@ -15,6 +19,9 @@ const Verification = () => {
   const phone_number = useQueryString("phone_number");
   const is_reset = useQueryString("is_reset");
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const { mutate, isPending } = verifyMutation();
 
   const {
     register,
@@ -24,21 +31,22 @@ const Verification = () => {
   } = useForm();
 
   const onSubmit = () => {
-    baseApi
-      .post("/verify", {
+    mutate(
+      {
         otp: fixedString(getValues("otp")),
         ...(phone_number && { phone: fixedString(phone_number) }),
         ...(email && { email }),
-      })
-      .then((res) => {
-        if (res?.status === 200) {
+      },
+      {
+        onSuccess: ({ data }: any) => {
           !!is_reset
             ? navigate("/auth/reset-password")
             : window.location.replace("/");
-          localStorage.setItem("token", res.data.access_token);
-        }
-      })
-      .catch((e) => alert(e.message));
+          dispatch(loginHandler(data.access_token));
+        },
+        onError: (e) => alert(e.message),
+      }
+    );
   };
 
   return (
@@ -48,6 +56,7 @@ const Verification = () => {
       </h1>
       <BaseInput error={errors.otp}>
         <MaskedInput
+          autoFocus
           mask="9 - 9 - 9 - 9 - 9 - 9"
           placeholder={t("password")}
           register={register("otp", { required: t("required_field") })}
@@ -61,6 +70,8 @@ const Verification = () => {
       <div className="mx-auto mt-6 text-blue-500">
         <Timer label={t("resend")} resendLabel={t("resend_after")} />
       </div>
+
+      {isPending && <Loading />}
     </form>
   );
 };
