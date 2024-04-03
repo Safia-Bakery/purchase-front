@@ -17,11 +17,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.scroll-container {
+  overflow-y: scroll; /* Enable vertical scrolling */
+  // height: 300px; /* Adjust height as needed */
+  transition: scroll-behavior 0.3s ease-in-out; /* Apply smooth scrolling transition */
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Circe";
+  transition: all 300ms;
 }
 
 .loader {

@@ -1,6 +1,5 @@
 import Button from "src/components/Button";
 import { useForm } from "react-hook-form";
-import baseApi from "src/api/baseApi";
 import cross from "/icons/cross.svg";
 import BaseInput from "src/components/BaseInputs";
 import MainInput from "src/components/BaseInputs/MainInput";

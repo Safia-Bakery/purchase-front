@@ -8,7 +8,7 @@ import HeaderRouter from "../HeaderRouter";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-export default function Header() {
+const Header = () => {
   const { t } = useTranslation();
   const lib = {
     purchasements: "purchasements",
@@ -20,7 +20,7 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 bg-white shadow-md">
+    <header className="fixed top-0 left-0 right-0 z-40 bg-white">
       <Container className="flex justify-between items-center w-full ">
         <Link to="/" className="flex items-center gap-2 lg:flex-1">
           <img src={safiaLogo} alt={"safia-logo"} height={70} width={70} />
@@ -42,4 +42,5 @@ export default function Header() {
       </Container>
     </header>
   );
-}
+};
+export default Header;

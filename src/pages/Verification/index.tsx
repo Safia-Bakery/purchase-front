@@ -2,7 +2,6 @@ import MaskedInput from "src/components/BaseInputs/MaskedInput";
 import Button from "src/components/Button";
 import Timer from "src/components/Timer";
 import { useForm } from "react-hook-form";
-import baseApi from "src/api/baseApi";
 import BaseInput from "src/components/BaseInputs";
 import useQueryString from "src/hooks/useQueryString";
 import { useNavigate } from "react-router-dom";
@@ -30,18 +29,19 @@ const Verification = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = () => {
+  const onSubmit = (e: any) => {
+    console.log(!!is_reset, "is_reset");
     mutate(
       {
         otp: fixedString(getValues("otp")),
-        ...(phone_number && { phone: fixedString(phone_number) }),
+        ...(phone_number && { phone_number: fixedString(phone_number) }),
         ...(email && { email }),
       },
       {
         onSuccess: ({ data }: any) => {
           !!is_reset
             ? navigate("/auth/reset-password")
-            : window.location.replace("/");
+            : navigate("/", { replace: true });
           dispatch(loginHandler(data.access_token));
         },
         onError: (e) => alert(e.message),

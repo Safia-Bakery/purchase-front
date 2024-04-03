@@ -12,6 +12,7 @@ import { logoutHandler, tokenSelector } from "src/store/reducers/auth";
 import { Link } from "react-router-dom";
 import Pagination from "src/components/Pagination";
 import useQueryString from "src/hooks/useQueryString";
+import { OrderTypes } from "src/utils/types";
 
 const History = () => {
   const { t } = useTranslation();
@@ -97,7 +98,9 @@ const History = () => {
                       <td className="text-center text-[#00000078]">
                         {t("open")}
                       </td>
-                      <td className="text-center">{t("new")}</td>
+                      <td className="text-center">
+                        {t(OrderTypes[order.status])}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

@@ -63,7 +63,7 @@ const Cooperate = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-1 lg:gap-20 gap-6 lg:flex-row flex-col items-center"
+      className="flex flex-1 lg:gap-20 gap-6 lg:flex-row flex-col items-center pb-10"
     >
       <div className="flex flex-1 max-w-[750px] h-full w-full">
         <img src={family} alt={"making"} className="w-full h-full rounded-lg" />

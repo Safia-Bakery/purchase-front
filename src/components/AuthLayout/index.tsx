@@ -4,12 +4,13 @@ import { Outlet } from "react-router-dom";
 import { useAppSelector } from "src/store/rootConfig";
 import { tokenSelector } from "src/store/reducers/auth";
 import { useEffect } from "react";
+import useQueryString from "src/hooks/useQueryString";
 
 const AuthLayoout = () => {
   const token = useAppSelector(tokenSelector);
-
+  const is_reset = useQueryString("is_reset");
   useEffect(() => {
-    if (!!token) window.location.replace("/");
+    if (!!token && !is_reset) window.location.replace("/");
   }, [token]);
 
   return (

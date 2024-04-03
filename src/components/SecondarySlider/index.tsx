@@ -1,4 +1,4 @@
-import Slider from "react-slick";
+import Slider, { Settings } from "react-slick";
 import SlideButtons from "./button";
 import { ReactNode, useRef } from "react";
 import useWindowSize from "../../hooks/useWindowSize";
@@ -9,15 +9,15 @@ interface Props<T> {
   component: (arg: T, idx: number) => ReactNode;
 }
 
-const settings = {
+const settings: Settings = {
   dots: true,
   infinite: true,
-  speed: 500,
-  slidesToShow: 4,
-  // slidesToScroll: 1,
+  speed: 300,
+  focusOnSelect: false,
+  slidesToShow: window.innerWidth < 1200 ? 1 : 5,
   swipe: true, // Enable swipe functionality
   autoplay: true, // Enable autoplay
-  autoplaySpeed: 5000, // Set autoplay speed in milliseconds
+  autoplaySpeed: 8000, // Set autoplay speed in milliseconds
 };
 
 export default function SecondarySlider<TProps>({
@@ -29,7 +29,7 @@ export default function SecondarySlider<TProps>({
 
   if (!size.width) return <Loading />;
   return (
-    <div className="relative">
+    <div className="relative ">
       <SlideButtons forwardedRef={sliderRef} />
       <Slider
         ref={sliderRef}

@@ -4,7 +4,7 @@ import slider from "/images/slider1.png";
 const settings = {
   dots: true,
   infinite: true,
-  speed: 500,
+  speed: 600,
   slidesToShow: 1,
   slidesToScroll: 1,
   swipe: true, // Enable swipe functionality

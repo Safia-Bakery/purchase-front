@@ -34,3 +34,6 @@ export const queryClient = new QueryClient({
     },
   },
 });
+export const Status = {
+  0: "new",
+};

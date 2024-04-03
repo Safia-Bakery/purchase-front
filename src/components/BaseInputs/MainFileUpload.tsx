@@ -52,7 +52,7 @@ const MainFileUpload: FC<Props> = ({
         {...register}
         {...others}
       />
-      <div className="w-full flex whitespace-pre-wrap overflow-ellipsis pr-10 pt-1 pl-1 -z-10 absolute top-1/2 text-textGray -translate-y-1/2">
+      <div className="w-full flex whitespace-pre-wrap overflow-ellipsis pr-10 pt-1 pl-1 -z-10 absolute top-1/2 text-xs lg:text-base text-textGray -translate-y-1/2">
         {!!uploadedFile ? uploadedFile : t(`${placeholder}`)}
       </div>
       <img

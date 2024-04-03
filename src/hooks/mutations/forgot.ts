@@ -2,15 +2,14 @@ import { useMutation } from "@tanstack/react-query";
 import baseApi from "src/api/baseApi";
 
 interface Body {
-  otp: string;
   phone_number?: string;
   email?: string;
 }
 
-const verifyMutation = () => {
+const forgotMutation = () => {
   return useMutation({
-    mutationKey: ["verify"],
-    mutationFn: (body: Body) => baseApi.post("/verify", body),
+    mutationKey: ["forgot"],
+    mutationFn: (body: Body) => baseApi.post("/forgot", body),
   });
 };
-export default verifyMutation;
+export default forgotMutation;

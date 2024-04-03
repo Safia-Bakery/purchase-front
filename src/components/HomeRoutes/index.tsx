@@ -5,7 +5,7 @@ import ScrollToTop from "../ScrollToTop";
 
 const HomeRoutes = () => {
   return (
-    <div>
+    <div className="scroll-container">
       <Header />
       <main className="pt-36">
         <Outlet />

@@ -29,6 +29,7 @@ const MobileHeader = ({ items }: Props) => {
       }, 100);
     }
     document?.getElementById(href)?.scrollIntoView({ behavior: "smooth" });
+    toggleActive();
   };
 
   return (

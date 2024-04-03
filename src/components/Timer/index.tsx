@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import baseApi from "src/api/baseApi";
+
 import { fixedString } from "src/utils/helper";
 import useQueryString from "src/hooks/useQueryString";
+import forgotMutation from "src/hooks/mutations/forgot";
+import Loading from "../Loader";
 
 interface Props {
   label?: string;
@@ -14,15 +16,19 @@ const Timer = ({ label, resendLabel }: Props) => {
   const [timeRemaining, setTimeRemaining] = useState(timer);
   const email = useQueryString("email");
   const phone_number = useQueryString("phone_number");
+  const { mutate, isPending } = forgotMutation();
 
   const handleResend = () => {
-    baseApi
-      .post("/forgot", {
-        ...(phone_number && { phone: `+${fixedString(phone_number)}` }),
+    mutate(
+      {
+        ...(phone_number && { phone_number: `+${fixedString(phone_number)}` }),
         ...(email && { email }),
-      })
-      .then(() => setTimeRemaining(timer))
-      .catch((e) => alert(e.message));
+      },
+      {
+        onSuccess: () => setTimeRemaining(timer),
+        onError: (e) => alert(e.message),
+      }
+    );
   };
 
   useEffect(() => {
@@ -41,15 +47,20 @@ const Timer = ({ label, resendLabel }: Props) => {
   }, [timeRemaining]);
 
   return (
-    <span>
-      {!!timeRemaining ? (
-        resendLabel + (timeRemaining < 10 ? `0${timeRemaining}` : timeRemaining)
-      ) : (
-        <button type="button" onClick={handleResend}>
-          {label}
-        </button>
-      )}
-    </span>
+    <>
+      <span>
+        {!!timeRemaining ? (
+          resendLabel +
+          (timeRemaining < 10 ? `0${timeRemaining}` : timeRemaining)
+        ) : (
+          <button type="button" onClick={handleResend}>
+            {label}
+          </button>
+        )}
+      </span>
+
+      {isPending && <Loading />}
+    </>
   );
 };
 

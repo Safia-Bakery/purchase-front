@@ -147,11 +147,13 @@ const Home = () => {
             className="flex lg:flex-row flex-col justify-between items-center py-20 gap-4"
             id={"suppliers"}
           >
-            <img
-              src={cooperateImg}
-              alt={"cooperate-img"}
-              className="flex rounded-full overflow-hidden"
-            />
+            <div className="flex flex-1 items-center justify-center">
+              <img
+                src={cooperateImg}
+                alt={"cooperate-img"}
+                className="flex rounded-full overflow-hidden"
+              />
+            </div>
 
             <div className="flex flex-col lg:w-[47%] flex-1 lg:pt-0 pt-5 gap-4">
               <h2 className="lg:text-3xl text-xl uppercase lg:mb-8">
@@ -218,14 +220,14 @@ const Home = () => {
         </Container>
 
         <div
-          className="flex items-center lg:pt-32 lg:h-[75vh] flex-1 lg:flex-row flex-col pt-14"
+          className="flex items-center lg:pt-32 lg:h-[75vh] flex-1 lg:flex-row flex-col pt-14 justify-between"
           id={"cooperation"}
         >
           <div className="flex flex-1 max-w-[800px] h-full w-full">
             <img
               src={family}
               alt={"making"}
-              className="w-full h-full rounded-lg"
+              className="w-full h-full rounded-tr-lg rounded-br-lg"
             />
           </div>
           <div className="flex flex-col w-full lg:ml-32 justify-between h-full content-between flex-1 p-4">
