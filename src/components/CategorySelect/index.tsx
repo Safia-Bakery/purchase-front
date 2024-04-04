@@ -7,7 +7,7 @@ type Props = {
 };
 
 const CategorySelect = ({ forwardedRef }: Props) => {
-  const { data } = useCategories({});
+  const { data } = useCategories({ status: 1 });
   const { t } = useTranslation();
 
   return (
