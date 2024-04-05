@@ -13,11 +13,12 @@ import { Link } from "react-router-dom";
 import Pagination from "src/components/Pagination";
 import useQueryString from "src/hooks/useQueryString";
 import { OrderTypes } from "src/utils/types";
+import { useEffect } from "react";
 
 const History = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { data: me, isLoading: meLoading } = useMe({});
+  const { data: me, isLoading: meLoading, isError } = useMe({});
   const token = useAppSelector(tokenSelector);
   const page = Number(useQueryString("page"));
 
@@ -28,6 +29,10 @@ const History = () => {
   });
 
   const handleLogout = () => dispatch(logoutHandler());
+
+  useEffect(() => {
+    if (isError) handleLogout();
+  }, [isError]);
 
   if (meLoading || ordersLoading) return <Loading />;
 
