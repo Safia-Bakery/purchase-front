@@ -114,6 +114,9 @@ const localization = {
 
       private_info: "Личные данные",
       date_registering: "Дата регистрации",
+      received: "Принят",
+      denied: "Отклонен",
+      done: "Закончен",
     },
   },
   uz: {

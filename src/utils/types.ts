@@ -66,8 +66,9 @@ export interface Metypes {
   updated_at: string;
 }
 
-export enum OrderTypes {
+export enum OrderStatus {
   new,
   received,
+  done,
   denied,
 }

@@ -12,7 +12,7 @@ import { logoutHandler, tokenSelector } from "src/store/reducers/auth";
 import { Link } from "react-router-dom";
 import Pagination from "src/components/Pagination";
 import useQueryString from "src/hooks/useQueryString";
-import { OrderTypes } from "src/utils/types";
+import { OrderStatus } from "src/utils/types";
 import { useEffect } from "react";
 
 const History = () => {
@@ -104,7 +104,7 @@ const History = () => {
                         {t("open")}
                       </td>
                       <td className="text-center">
-                        {t(OrderTypes[order.status])}
+                        {t(OrderStatus[order.status])}
                       </td>
                     </tr>
                   ))}
