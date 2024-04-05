@@ -3,10 +3,15 @@ import safiaLogo from "/images/colored-safia-logo.png";
 import { Link, useParams } from "react-router-dom";
 import Button from "src/components/Button";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 const Success = () => {
   const { id } = useParams();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   return (
     <Container className="px-4 mb-6">
       <div className="py-8 px-3 max-w-[748px] w-full shadow-blockShadow rounded-xl flex flex-col items-center mx-auto ">

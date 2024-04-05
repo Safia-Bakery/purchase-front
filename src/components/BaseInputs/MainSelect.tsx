@@ -24,9 +24,15 @@ interface Props {
   values?: ValuesType[];
   children?: ReactNode;
   forwardedRef?: React.RefObject<HTMLInputElement>;
+  updateRef?: (val: string | number) => void;
 }
 
-const MainSelect: FC<Props> = ({ className, values, forwardedRef }) => {
+const MainSelect: FC<Props> = ({
+  className,
+  values,
+  forwardedRef,
+  updateRef,
+}) => {
   const { t } = useTranslation();
   const lang = useAppSelector(langSelector);
   const [open, $open] = useState(false);
@@ -35,6 +41,7 @@ const MainSelect: FC<Props> = ({ className, values, forwardedRef }) => {
   const handleChange = (item: ValuesType) => () => {
     $checked(item);
     toggleActive();
+    updateRef?.(item.id);
   };
 
   const toggleActive = () => $open((prev) => !prev);

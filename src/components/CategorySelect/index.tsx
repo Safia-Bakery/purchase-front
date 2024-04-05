@@ -3,16 +3,16 @@ import MainSelect from "../BaseInputs/MainSelect";
 import useCategories from "src/hooks/useCategories";
 import { useTranslation } from "react-i18next";
 type Props = {
-  forwardedRef?: React.RefObject<HTMLInputElement>;
+  updateref?: (val: string | number) => void;
 };
 
-const CategorySelect = ({ forwardedRef }: Props) => {
+const CategorySelect = ({ updateref: forwardedRef }: Props) => {
   const { data } = useCategories({ status: 1 });
   const { t } = useTranslation();
 
   return (
     <BaseInput label={t("order_category")}>
-      <MainSelect forwardedRef={forwardedRef} values={data?.items} />
+      <MainSelect updateRef={forwardedRef} values={data?.items} />
     </BaseInput>
   );
 };

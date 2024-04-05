@@ -19,7 +19,7 @@ const infoArr = [
   { name_uz: "Ishlab chiqaruvchi", name_ru: "Производитель", id: 1 },
   { name_uz: "Distribyutor", name_ru: "Дистрибьютор", id: 2 },
   { name_uz: "Import qiluvchi", name_ru: "Импортер", id: 3 },
-  { name_uz: "Boshqa", name_ru: "Другое", id: 4 },
+  { name_uz: "Boshqa", name_ru: "Другое", id: 5 },
 ];
 
 const Cooperate = () => {
@@ -27,10 +27,10 @@ const Cooperate = () => {
   const { mutate, isPending } = orderMutation();
   const navigate = useNavigate();
 
-  const categoryRef = useRef<HTMLInputElement>(null);
+  const categoryRef = useRef<any>(null);
   const commercial_offer_ref = useRef<HTMLInputElement>(null);
   const certificates_ref = useRef<HTMLInputElement>(null);
-  const you_are_ref = useRef<HTMLInputElement>(null);
+  const role_ref = useRef<any>();
   const is_worker = useRef<HTMLInputElement>(null);
 
   const {
@@ -40,6 +40,9 @@ const Cooperate = () => {
     formState: { errors },
   } = useForm();
 
+  const updateRole = (val: string | number) => (role_ref.current = val);
+  const updateCategory = (val: string | number) => (categoryRef.current = val);
+
   const onSubmit = () => {
     const { product, brend } = getValues();
 
@@ -47,8 +50,8 @@ const Cooperate = () => {
       {
         product,
         brend,
-        category_id: categoryRef.current?.value,
-        role: you_are_ref.current?.value,
+        category_id: categoryRef.current,
+        role: role_ref.current,
         sertificate: certificates_ref.current?.files?.[0],
         brochure: commercial_offer_ref.current?.files?.[0],
         safia_worker: is_worker.current?.checked,
@@ -86,7 +89,7 @@ const Cooperate = () => {
             placeholder={t("order_input")}
           />
         </BaseInput>
-        <CategorySelect forwardedRef={categoryRef} />
+        <CategorySelect updateref={updateCategory} />
         <BaseInput label={t("order_commertial_reqs")}>
           <MainFileUpload
             placeholder={"order_commertial_reqs_descr"}
@@ -101,7 +104,7 @@ const Cooperate = () => {
         </BaseInput>
 
         <BaseInput label={t("order_you_are")}>
-          <MainSelect forwardedRef={you_are_ref} values={infoArr} />
+          <MainSelect updateRef={updateRole} values={infoArr} />
         </BaseInput>
 
         <MainCheckBox forwardedRef={is_worker} label={"order_worked_with"} />
