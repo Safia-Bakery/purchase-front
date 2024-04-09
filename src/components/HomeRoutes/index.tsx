@@ -7,7 +7,7 @@ const HomeRoutes = () => {
   return (
     <div>
       <Header />
-      <main className="pt-36">
+      <main className="pt-24">
         <Outlet />
       </main>
       <Footer />

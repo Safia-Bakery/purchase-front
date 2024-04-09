@@ -72,7 +72,7 @@ const Cooperate = () => {
         <img src={family} alt={"making"} className="w-full h-full rounded-lg" />
       </div>
 
-      <div className="flex flex-1 lg:gap-6 gap-3 flex-col lg:w-[30vw] px-3">
+      <div className="flex flex-1 lg:flex-none lg:gap-6 gap-3 flex-col lg:w-[35vw] w-full px-3">
         <h1 className="lg:text-5xl uppercase text-2xl">
           {t("will_you_cooperate")}
         </h1>

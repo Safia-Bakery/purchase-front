@@ -10,11 +10,10 @@ interface Props<T> {
 }
 
 const settings: Settings = {
-  dots: true,
   infinite: true,
   speed: 300,
   focusOnSelect: false,
-  slidesToShow: window.innerWidth < 1200 ? 1 : 5,
+  slidesToShow: window.innerWidth < 1200 ? 1 : 4,
   swipe: true, // Enable swipe functionality
   autoplay: true, // Enable autoplay
   autoplaySpeed: 8000, // Set autoplay speed in milliseconds

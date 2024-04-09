@@ -125,8 +125,8 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="lg:pt-28 pt-16" id={"previlleges"}>
-            <h2 className="lg:text-3xl text-xl uppercase z-10 absolute lg:-mt-5 lg:left-1/2 lg:-translate-x-1/2 ">
+          <div className="lg:pt-32 pt-16" id={"previlleges"}>
+            <h2 className="lg:text-3xl text-xl uppercase z-10 absolute lg:-mt-14 lg:left-1/2 lg:-translate-x-1/2 ">
               {t("advantages")}
             </h2>
             <AdvantagesSlider data={advantageSlideArr} />
@@ -147,7 +147,7 @@ const Home = () => {
             className="flex lg:flex-row flex-col justify-between items-center py-20 gap-4"
             id={"suppliers"}
           >
-            <div className="flex flex-1 items-center justify-center">
+            <div className="flex flex-1 items-center">
               <img
                 src={cooperateImg}
                 alt={"cooperate-img"}
@@ -198,21 +198,21 @@ const Home = () => {
                 {t("expectation_descr")}
               </p>
               <h2 className="lg:text-5xl text-xl uppercase max-w-[620px] w-full mb-4 mt-8">
-                {t("expectation_title")}
+                {t("how_we_reaching")}
               </h2>
               <p className="text-textGray max-w-[490px] w-full">
-                {t("expectation_descr")}
+                {t("how_we_reaching_descr")}
               </p>
             </div>
             <img
               src={safia_img}
               alt={"safia-img"}
-              className="max-w-[620px] w-full object-contain"
+              className="max-w-[520px] w-full object-contain"
             />
           </div>
 
           <div className="lg:pt-36 pt-14" id={"our_suppliers"}>
-            <h2 className="lg:text-3xl text-xl uppercase z-10 absolute lg:left-1/2 lg:-translate-x-1/2 lg:-mt-3">
+            <h2 className="lg:text-3xl text-xl uppercase z-10 absolute lg:left-1/2 lg:-translate-x-1/2 lg:-mt-14">
               {t("our_suppliers")}
             </h2>
             <SuppliersSlider data={suppliersSlider} />
@@ -248,7 +248,7 @@ const Home = () => {
 
               <Link
                 className="text-[40px] underline mt-3"
-                to={"mailto:safiabakery.uz"}
+                to={"mailto:info@safiabakery.uz"}
               >
                 safiabakery.uz
               </Link>

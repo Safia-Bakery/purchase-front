@@ -8,7 +8,10 @@ const baseApi: AxiosInstance = axios.create({
   baseURL,
 });
 
-const invalidarr = ["undefined", "null", ""];
+const logoutStatus: any = {
+  403: true,
+  401: true,
+};
 
 baseApi.interceptors.request.use(
   (config) => {
@@ -29,7 +32,7 @@ baseApi.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error?.response?.status === 401) {
+    if (logoutStatus[error?.response?.status]) {
       logoutUser();
     }
     return Promise.reject(error);
