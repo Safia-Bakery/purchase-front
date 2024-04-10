@@ -15,8 +15,8 @@ const settings: Settings = {
   focusOnSelect: false,
   slidesToShow: window.innerWidth < 1200 ? 1 : 4,
   swipe: true, // Enable swipe functionality
-  autoplay: true, // Enable autoplay
-  autoplaySpeed: 8000, // Set autoplay speed in milliseconds
+  // autoplay: true, // Enable autoplay
+  // autoplaySpeed: 8000, // Set autoplay speed in milliseconds
 };
 
 export default function SecondarySlider<TProps>({
