@@ -37,3 +37,8 @@ export const queryClient = new QueryClient({
 export const Status = {
   0: "new",
 };
+
+export const safiaEmail = "info@safiabakery.uz";
+export const safiaFacebook = "https://www.facebook.com/Safia.uz";
+export const safiaTgBot = "https://t.me/Safiabakery_uzbot";
+export const safiaInsta = "https://www.instagram.com/safia_uz/";

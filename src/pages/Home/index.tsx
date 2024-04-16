@@ -20,6 +20,7 @@ import { useMemo } from "react";
 import { useAppSelector } from "src/store/rootConfig";
 import { tokenSelector } from "src/store/reducers/auth";
 import SuppliersSlider from "src/components/SuppliersSlider";
+import { safiaEmail } from "src/utils/helper";
 
 const suppliersSlider = [
   { img: supplier, descr: "Здесь будет цитата от руководителся r" },
@@ -248,7 +249,7 @@ const Home = () => {
 
               <Link
                 className="text-[40px] underline mt-3"
-                to={"mailto:info@safiabakery.uz"}
+                to={`mailto:${safiaEmail}`}
               >
                 safiabakery.uz
               </Link>
