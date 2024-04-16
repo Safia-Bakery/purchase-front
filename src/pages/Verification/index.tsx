@@ -30,7 +30,6 @@ const Verification = () => {
   } = useForm();
 
   const onSubmit = (e: any) => {
-    console.log(!!is_reset, "is_reset");
     mutate(
       {
         otp: fixedString(getValues("otp")),
