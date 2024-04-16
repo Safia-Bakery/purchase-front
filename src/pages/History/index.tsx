@@ -14,6 +14,7 @@ import Pagination from "src/components/Pagination";
 import useQueryString from "src/hooks/useQueryString";
 import { OrderStatus } from "src/utils/types";
 import { useEffect } from "react";
+import { baseURL } from "src/api/baseApi";
 
 const History = () => {
   const { t } = useTranslation();
@@ -33,6 +34,10 @@ const History = () => {
   useEffect(() => {
     if (isError) handleLogout();
   }, [isError]);
+
+  useEffect(() => {
+    if (!token) window.location.replace("/auth/login");
+  }, [token]);
 
   if (meLoading || ordersLoading) return <Loading />;
 
@@ -89,6 +94,7 @@ const History = () => {
                     <th>№</th>
                     <th>{t("date")}</th>
                     <th>{t("doc")}</th>
+                    <th>{t("certificate")}</th>
                     <th>{t("status")}</th>
                   </tr>
                 </thead>
@@ -101,7 +107,28 @@ const History = () => {
                         {dayjs(order.created_at).format(dateTimeFormat)}
                       </td>
                       <td className="text-center text-[#00000078]">
-                        {t("open")}
+                        {order.brochure ? (
+                          <Link
+                            to={`${baseURL}/${order.brochure}`}
+                            target="_blank"
+                          >
+                            {t("open")}
+                          </Link>
+                        ) : (
+                          "-----"
+                        )}
+                      </td>
+                      <td className="text-center text-[#00000078]">
+                        {order.sertificate ? (
+                          <Link
+                            to={`${baseURL}/${order.sertificate}`}
+                            target="_blank"
+                          >
+                            {t("open")}
+                          </Link>
+                        ) : (
+                          "-----"
+                        )}
                       </td>
                       <td className="text-center">
                         {t(OrderStatus[order.status])}
@@ -124,14 +151,39 @@ const History = () => {
                   </div>
                   <div className="flex justify-between lg:p-2 p-1">
                     <span className="font-bold">{t("doc")}</span>
-                    <span>
-                      {dayjs(order.created_at).format(dateTimeFormat)}
+                    <span className="font-bold">
+                      {!!order.brochure ? (
+                        <Link
+                          to={`${baseURL}/${order.brochure}`}
+                          target="_blank"
+                        >
+                          {t("open")}
+                        </Link>
+                      ) : (
+                        "-----"
+                      )}
+                    </span>
+                  </div>
+                  <div className="flex justify-between lg:p-2 p-1">
+                    <span className="font-bold">{t("certificate")}</span>
+                    <span className="font-bold">
+                      {!!order.sertificate ? (
+                        <Link
+                          to={`${baseURL}/${order.sertificate}`}
+                          target="_blank"
+                        >
+                          {" "}
+                          {t("open")}
+                        </Link>
+                      ) : (
+                        "-----"
+                      )}
                     </span>
                   </div>
 
                   <div className="flex justify-between lg:p-2 p-1">
                     <span className="font-bold">{t("date")}</span>
-                    <span>{t("open")}</span>
+                    {dayjs(order.created_at).format(dateTimeFormat)}
                   </div>
 
                   <div className="flex justify-between lg:p-2 p-1">

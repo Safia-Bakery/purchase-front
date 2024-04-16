@@ -42,6 +42,7 @@ const localization = {
       order_history: "История Заявок",
       date: "Дата",
       doc: "Документ",
+      certificate: "Сертификат",
       status: "Статус",
       open: "Открыть",
       download_pdf: "скачать PDF",
