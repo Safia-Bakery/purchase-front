@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosResponse } from "axios";
 import { logoutHandler } from "src/store/reducers/auth";
 import { store } from "src/store/rootConfig";
 
-export const baseURL = "https://api.purchase.safiabakery.uz";
+export const baseURL = "https://backend.purchase.safiabakery.uz";
 
 const baseApi: AxiosInstance = axios.create({
   baseURL,
