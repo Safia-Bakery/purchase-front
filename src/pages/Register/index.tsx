@@ -18,13 +18,11 @@ const Register = () => {
     clearErrors,
     formState: { errors },
     setError,
-    watch,
     getValues,
     handleSubmit,
   } = useForm();
   const navigate = useNavigate();
   const { mutate, isPending } = registerMutation();
-  const password = watch("password");
 
   const onSubmit = () => {
     const {
@@ -35,6 +33,7 @@ const Register = () => {
       inn,
       company_name,
       address,
+      login,
       password,
       confirmPassword,
     } = getValues();
@@ -44,26 +43,27 @@ const Register = () => {
         type: "manual",
         message: t("password_do_not_match"),
       });
-      return; // Prevent form submission if passwords do not match
+      return;
     } else {
       clearErrors("confirmPassword");
-      // mutate(
-      //     {
-      //         phone: fixedString(phone),
-      //         name,
-      //         surname,
-      //         email,
-      //         inn,
-      //         company_name,
-      //         address,
-      //         password,
-      //     },
-      //     {
-      //         onSuccess: () =>
-      //             navigate(`/auth/verify?phone_number=${getValues("phone")}`),
-      //         onError: (e) => alert(e.message),
-      //     }
-      // );
+      mutate(
+        {
+          phone: fixedString(phone),
+          name,
+          surname,
+          email,
+          inn,
+          company_name,
+          address,
+          password,
+          login,
+        },
+        {
+          onSuccess: () =>
+            navigate(`/auth/verify?phone_number=${getValues("phone")}`),
+          onError: (e) => alert(e.message),
+        }
+      );
     }
   };
 

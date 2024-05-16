@@ -10,6 +10,7 @@ interface Body {
   company_name: string;
   address: string;
   password: string;
+  login: string
 }
 
 const registerMutation = () => {
