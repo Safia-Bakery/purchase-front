@@ -10,6 +10,7 @@ interface Body {
   category_id?: string;
   safia_worker?: boolean;
   price?: number
+  product_images?: any[]
 }
 
 const contentType = "multipart/form-data";
@@ -17,10 +18,19 @@ const contentType = "multipart/form-data";
 const orderMutation = () => {
   return useMutation({
     mutationKey: ["order"],
-    mutationFn: (body: Body) =>
-      baseApi
-        .post("/order", body, { headers: { "Content-Type": contentType } })
-        .then(({ data }) => data),
+    mutationFn: async (body: Body) => {
+      const formData = new FormData();
+      body.product_images?.forEach((item: any) => {
+        formData.append("product_images", item);
+      });
+      Object.keys(body).forEach((key: string) => {
+        if (key !== "product_images" && body[key as keyof Body] !== undefined)
+          formData.append(key, body[key as keyof Body] as any);
+      });
+      const {data} = await baseApi
+          .post("/order", formData, {headers: {"Content-Type": contentType}});
+      return data;
+    }
   });
 };
 export default orderMutation;
