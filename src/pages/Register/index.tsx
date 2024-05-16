@@ -9,12 +9,22 @@ import { fixedString } from "src/utils/helper";
 import { useTranslation } from "react-i18next";
 import registerMutation from "src/hooks/mutations/register";
 import Loading from "src/components/Loader";
+import BaseInputs from "src/components/BaseInputs";
 
 const Register = () => {
   const { t } = useTranslation();
-  const { register, getValues, handleSubmit } = useForm();
+  const {
+    register,
+    clearErrors,
+    formState: { errors },
+    setError,
+    watch,
+    getValues,
+    handleSubmit,
+  } = useForm();
   const navigate = useNavigate();
   const { mutate, isPending } = registerMutation();
+  const password = watch("password");
 
   const onSubmit = () => {
     const {
@@ -26,25 +36,35 @@ const Register = () => {
       company_name,
       address,
       password,
+      confirmPassword,
     } = getValues();
 
-    mutate(
-      {
-        phone: fixedString(phone),
-        name,
-        surname,
-        email,
-        inn,
-        company_name,
-        address,
-        password,
-      },
-      {
-        onSuccess: () =>
-          navigate(`/auth/verify?phone_number=${getValues("phone")}`),
-        onError: (e) => alert(e.message),
-      }
-    );
+    if (password !== confirmPassword) {
+      setError("confirmPassword", {
+        type: "manual",
+        message: t("password_do_not_match"),
+      });
+      return; // Prevent form submission if passwords do not match
+    } else {
+      clearErrors("confirmPassword");
+      // mutate(
+      //     {
+      //         phone: fixedString(phone),
+      //         name,
+      //         surname,
+      //         email,
+      //         inn,
+      //         company_name,
+      //         address,
+      //         password,
+      //     },
+      //     {
+      //         onSuccess: () =>
+      //             navigate(`/auth/verify?phone_number=${getValues("phone")}`),
+      //         onError: (e) => alert(e.message),
+      //     }
+      // );
+    }
   };
 
   return (
@@ -54,50 +74,93 @@ const Register = () => {
       </Link>
       <div className="flex lg:flex-row gap-5 flex-col flex-1">
         <div className="flex flex-col flex-1">
-          <MainInput
-            placeholder={t("name")}
-            register={register("name")}
-            className="mb-4"
-          />
-          <MainInput
-            placeholder={t("surname")}
-            register={register("surname")}
-            className="mb-4"
-          />
-          <MaskedInput
-            placeholder={t("phone")}
-            defaultValue={998}
-            register={register("phone")}
-            className="mb-4"
-          />
-          <MainInput
-            placeholder={"E-mail"}
-            className="mb-4"
-            register={register("email")}
-          />
+          <BaseInputs error={errors.name}>
+            <MainInput
+              placeholder={t("name")}
+              register={register("name", {
+                required: t("required_field"),
+              })}
+              className="mb-2"
+            />
+          </BaseInputs>
+          <BaseInputs error={errors.surname}>
+            <MainInput
+              placeholder={t("surname")}
+              register={register("surname")}
+              className="mb-2"
+            />
+          </BaseInputs>
+          <BaseInputs error={errors.phone}>
+            <MaskedInput
+              placeholder={t("phone")}
+              defaultValue={998}
+              register={register("phone", {
+                required: t("required_field"),
+              })}
+              className="mb-2"
+            />
+          </BaseInputs>
+          <BaseInputs error={errors.login}>
+            <MainInput
+              placeholder={t("loginn")}
+              register={register("login", {
+                required: t("required_field"),
+              })}
+              className="mb-2"
+            />
+          </BaseInputs>
+          <BaseInputs error={errors.password}>
+            <MainInput
+              placeholder={t("password")}
+              className="mb-2"
+              type="password"
+              register={register("password", {
+                required: t("required_field"),
+              })}
+            />
+          </BaseInputs>
         </div>
         <div className="flex flex-col flex-1">
-          <MainInput
-            placeholder={t("inn")}
-            register={register("inn")}
-            className="mb-4"
-          />
-          <MainInput
-            placeholder={t("name_company")}
-            className="mb-4"
-            register={register("company_name")}
-          />
-          <MainInput
-            placeholder={t("jur_addr")}
-            className="mb-4"
-            register={register("address")}
-          />
-          <MainInput
-            placeholder={t("password")}
-            className="mb-4"
-            type="password"
-            register={register("password")}
-          />
+          <BaseInputs>
+            <MainInput
+              placeholder={t("inn")}
+              register={register("inn")}
+              className="mb-2"
+            />
+          </BaseInputs>
+          <BaseInputs error={errors.company_name}>
+            <MainInput
+              placeholder={t("name_company")}
+              className="mb-2"
+              register={register("company_name", {
+                required: t("required_field"),
+              })}
+            />
+          </BaseInputs>
+          <BaseInputs>
+            <MainInput
+              placeholder={t("jur_addr")}
+              className="mb-2"
+              register={register("address")}
+            />
+          </BaseInputs>
+          <BaseInputs>
+            <MainInput
+              placeholder={"E-mail"}
+              className="mb-2"
+              register={register("email")}
+            />
+          </BaseInputs>
+          <BaseInputs error={errors.confirmPassword}>
+            <MainInput
+              placeholder={t("confirmPassword")}
+              className="mb-2"
+              type="password"
+              register={register("confirmPassword", {
+                required: t("required_field"),
+              })}
+            />
+          </BaseInputs>
         </div>
       </div>
       <div className="flex gap-4 items-center flex-[5] justify-center mt-6">

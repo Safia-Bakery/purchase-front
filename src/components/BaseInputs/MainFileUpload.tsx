@@ -36,9 +36,9 @@ const MainFileUpload: FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const [uploadedFile, $uploadedFile] = useState<any>();
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     $uploadedFile(e.target.value);
-  };
+
   return (
     <div
       className={`${className} ${styles.inputBox} flex flex-wrap relative text-sm z-30 !p-0`}
