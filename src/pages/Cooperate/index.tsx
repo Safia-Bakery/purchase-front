@@ -44,7 +44,7 @@ const Cooperate = () => {
   const updateCategory = (val: string | number) => (categoryRef.current = val);
 
   const onSubmit = () => {
-    const { product, brend } = getValues();
+    const { product, brend, price } = getValues();
 
     mutate(
       {
@@ -54,7 +54,7 @@ const Cooperate = () => {
         role: role_ref.current,
         sertificate: certificates_ref.current?.files?.[0],
         brochure: commercial_offer_ref.current?.files?.[0],
-        safia_worker: is_worker.current?.checked,
+        safia_worker: is_worker.current?.checked,price
       },
       {
         onSuccess: (data: OrderType) =>
@@ -85,10 +85,18 @@ const Cooperate = () => {
         </BaseInput>
         <BaseInput label={t("order_brand")} error={errors.brend}>
           <MainInput
-            register={register("brend", { required: t("required_field") })}
+            register={register("brand", { required: t("required_field") })}
             placeholder={t("order_input")}
           />
         </BaseInput>
+
+        <BaseInput label={t("price_with_nds")} error={errors.price}>
+          <MainInput
+              register={register("price", { required: t("required_field") })}
+              placeholder={t("order_input")} type='number'
+          />
+        </BaseInput>
+
         <CategorySelect updateref={updateCategory} />
         <BaseInput label={t("order_commertial_reqs")}>
           <MainFileUpload

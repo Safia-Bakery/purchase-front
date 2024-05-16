@@ -35,6 +35,8 @@ const MainInput: FC<Props> = ({
       className={`${className} ${styles.inputBox}`}
       placeholder={placeholder || ""}
       ref={ref}
+        // @ts-ignore
+      onWheel={(e) => e.target?.blur()}
       defaultValue={defaultValue}
       {...register}
       {...others}

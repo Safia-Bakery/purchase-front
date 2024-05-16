@@ -9,6 +9,7 @@ interface Body {
   brochure?: File;
   category_id?: string;
   safia_worker?: boolean;
+  price?: number
 }
 
 const contentType = "multipart/form-data";

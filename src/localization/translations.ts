@@ -121,6 +121,7 @@ const localization = {
       received: "Принят",
       denied: "Отклонен",
       done: "Закончен",
+      price_with_nds: "Цена с учетом НДС",
 
       how_we_reaching: "И КАК МЫ ЭТОГО ДОБИВАЕМСЯ?",
       how_we_reaching_descr:
