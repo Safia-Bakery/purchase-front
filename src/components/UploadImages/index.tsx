@@ -14,7 +14,7 @@ import { ImageType } from "src/utils/types.ts";
 
 const UploadImages = () => {
   const { t } = useTranslation();
-  const [modal, $modal] = useState(true);
+  const [modal, $modal] = useState(false);
   const dispatch = useAppDispatch();
   const images = useAppSelector(imageSelector);
 
