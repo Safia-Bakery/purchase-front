@@ -43,7 +43,7 @@ const Modal: FC<Props> = ({
             [isOpen ? styles.fadeIn : styles.fadeOut]
           )}
         >
-          <div className={styles.content}>{children}</div>
+          <div className={'absolute inset-0'}>{children}</div>
         </div>
       )}
     </>

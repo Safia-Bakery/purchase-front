@@ -67,7 +67,7 @@ const MainSelect: FC<Props> = ({
 
         <div
           className={cl(
-            "opacity-0 bg-white p-4 transition-opacity absolute top-12 shadow-blockShadow flex -z-10 flex-col gap-2 w-full rounded-xl",
+            "opacity-0 bg-white p-4 transition-opacity absolute top-12 shadow-blockShadow flex -z-10 flex-col gap-2 w-full rounded-xl h-40 overflow-y-auto",
             {
               ["opacity-100 !z-40"]: open,
             }

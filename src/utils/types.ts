@@ -72,3 +72,9 @@ export enum OrderStatus {
   done,
   denied,
 }
+
+export type ImageType = {
+  name: string;
+  content: File;
+  url: string;
+};
