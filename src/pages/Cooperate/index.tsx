@@ -15,8 +15,8 @@ import MainFileUpload from "src/components/BaseInputs/MainFileUpload";
 import CategorySelect from "src/components/CategorySelect";
 import MainCheckBox from "src/components/MainCheckBox";
 import UploadImages from "src/components/UploadImages";
-import { useAppSelector } from "src/store/rootConfig.ts";
-import { imageSelector } from "src/store/reducers/images.ts";
+import {useAppDispatch, useAppSelector} from "src/store/rootConfig.ts";
+import {clearImages, imageSelector} from "src/store/reducers/images.ts";
 
 const infoArr = [
   { name_uz: "Ishlab chiqaruvchi", name_ru: "Производитель", id: 1 },
@@ -29,6 +29,7 @@ const Cooperate = () => {
   const { t } = useTranslation();
   const { mutate, isPending } = orderMutation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const images = useAppSelector(imageSelector);
 
@@ -60,11 +61,18 @@ const Cooperate = () => {
         brochure: commercial_offer_ref.current?.files?.[0],
         safia_worker: is_worker.current?.checked,
         price,
-        product_images: images,
+        product_images: images.map((image) => {
+          return {
+            name: image.name,
+            content: image.content,
+          }
+        }),
       },
       {
-        onSuccess: (data: OrderType) =>
-          navigate(`/success/${data.id}`, { replace: true }),
+        onSuccess: (data: OrderType) => {
+          navigate(`/success/${data.id}`, {replace: true})
+          dispatch(clearImages())
+        },
         onError: (e) => alert(e.message),
       }
     );
