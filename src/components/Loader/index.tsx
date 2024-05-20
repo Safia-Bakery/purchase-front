@@ -1,10 +1,21 @@
+import { FC } from "react";
+import styles from "./index.module.scss";
+import cl from "classnames";
 import safiaLogo from "/images/safia-logo.png";
 
-export default function Loading() {
+interface Props {
+  is_static?: boolean;
+  className?: string;
+}
+
+const Loading: FC<Props> = ({ is_static = false, className }) => {
   return (
-    <div className={"loader"}>
+    <div
+      className={cl(className, styles.wrap, { [styles.absolute]: !is_static })}
+    >
+      <div className={styles.overlay} />
       <img
-        className={"loadingCircle"}
+        className={styles.loadingCircle}
         src={safiaLogo}
         height={50}
         width={50}
@@ -12,4 +23,6 @@ export default function Loading() {
       />
     </div>
   );
-}
+};
+
+export default Loading;

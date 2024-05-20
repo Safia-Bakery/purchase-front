@@ -15,8 +15,8 @@ import MainFileUpload from "src/components/BaseInputs/MainFileUpload";
 import CategorySelect from "src/components/CategorySelect";
 import MainCheckBox from "src/components/MainCheckBox";
 import UploadImages from "src/components/UploadImages";
-import {useAppDispatch, useAppSelector} from "src/store/rootConfig.ts";
-import {clearImages, imageSelector} from "src/store/reducers/images.ts";
+import { useAppDispatch, useAppSelector } from "src/store/rootConfig.ts";
+import { clearImages, imageSelector } from "src/store/reducers/images.ts";
 
 const infoArr = [
   { name_uz: "Ishlab chiqaruvchi", name_ru: "Производитель", id: 1 },
@@ -65,13 +65,13 @@ const Cooperate = () => {
           return {
             name: image.name,
             content: image.content,
-          }
+          };
         }),
       },
       {
         onSuccess: (data: OrderType) => {
-          navigate(`/success/${data.id}`, {replace: true})
-          dispatch(clearImages())
+          navigate(`/success/${data?.id}`, { replace: true });
+          dispatch(clearImages());
         },
         onError: (e) => alert(e.message),
       }
