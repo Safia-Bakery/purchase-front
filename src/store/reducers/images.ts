@@ -1,32 +1,43 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../rootConfig";
-import { ImageType } from "src/utils/types";
+import { FileState, FileUploadRes } from "src/utils/types";
 
-interface State {
-  images: ImageType[];
-}
-
-const initialState: State = {
-  images: [],
+const initialState: FileState = {
+  product_images: undefined,
+  brochures: undefined,
+  sertificates: undefined,
 };
 
 export const imageReducer = createSlice({
   name: "image_upload",
   initialState,
   reducers: {
-    uploadImage: (state, { payload }: PayloadAction<ImageType>) => {
-      state.images.push(payload);
+    uploadImage: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{ key: keyof FileState; value: FileUploadRes["files"] }>
+    ) => {
+      state[payload.key]! = payload.value;
     },
-    removeImage: (state, action: PayloadAction<number>) => {
-      state.images = state.images.filter((_, idx) => idx !== action.payload);
+    removeImage: (
+      state,
+      { payload }: PayloadAction<{ key: keyof FileState; value: number }>
+    ) => {
+      if (!!state[payload.key]?.length) {
+        const filtered: FileUploadRes["files"] = state[payload.key]!.filter(
+          (item) => item.id !== payload.value
+        );
+        state[payload.key] = filtered;
+      }
     },
     clearImages: (state) => {
-      state.images = [];
-    }
+      state = initialState;
+    },
   },
 });
 
-export const imageSelector = (state: RootState) => state.images.images;
+export const imageSelector = (state: RootState) => state.images;
 
-export const { uploadImage, removeImage,clearImages } = imageReducer.actions;
+export const { uploadImage, removeImage, clearImages } = imageReducer.actions;
 export default imageReducer.reducer;

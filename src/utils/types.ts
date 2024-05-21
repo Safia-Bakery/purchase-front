@@ -78,3 +78,23 @@ export type ImageType = {
   content: File;
   url: string;
 };
+
+export enum ModalTypes {
+  product_images,
+  brochures,
+  sertificates,
+}
+
+export type FileUploadRes = {
+  success: boolean;
+  files: {
+    id: number;
+    url: string;
+  }[];
+};
+
+export interface FileState {
+  product_images?: FileUploadRes["files"];
+  brochures?: FileUploadRes["files"];
+  sertificates?: FileUploadRes["files"];
+}

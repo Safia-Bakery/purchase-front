@@ -10,40 +10,61 @@ import {
   removeImage,
   uploadImage,
 } from "src/store/reducers/images.ts";
-import { ImageType } from "src/utils/types.ts";
+import {
+  FileState,
+  FileUploadRes,
+  ImageType,
+  ModalTypes,
+} from "src/utils/types.ts";
+import fileUploadMutation from "src/hooks/mutations/fileUpload";
+import useQueryString from "src/hooks/useQueryString";
+import { useRemoveParams } from "src/hooks/useCustomNavigate";
+import { baseURL } from "src/api/baseApi";
+import Loading from "../Loader";
+interface Props {
+  openModal: () => void;
+  keyObj: ModalTypes;
+}
 
-const UploadImages = () => {
+const UploadImages = ({ openModal, keyObj: key }: Props) => {
   const { t } = useTranslation();
-  const [modal, $modal] = useState(false);
+  const modal = useQueryString("modal");
   const dispatch = useAppDispatch();
+  const removeParams = useRemoveParams();
   const images = useAppSelector(imageSelector);
+  const { mutate, isPending } = fileUploadMutation();
+  const stateKey = ModalTypes[key] as keyof FileState;
 
-  const onDrop = useCallback((files: any) => {
-    if (files) {
-      Array.from(files).forEach((file: any) => {
-        const reader = new FileReader();
-        reader.onload = (e: ProgressEvent<FileReader>) => {
-          const url = e.target?.result as string;
-          const image: ImageType = {
-            name: file.name,
-            content: file,
-            url: url,
-          };
-          dispatch(uploadImage(image));
-        };
-        reader.readAsDataURL(file);
-      });
-    }
+  const onDrop = useCallback(
+    (files: any) => {
+      if (files) {
+        mutate(
+          { files },
+          {
+            onSuccess: (data: FileUploadRes) => {
+              dispatch(
+                uploadImage({
+                  key: ModalTypes[Number(modal)] as keyof FileState,
+                  value: data.files,
+                })
+              );
+              closeModal();
+            },
+          }
+        );
+      }
+    },
+    [modal]
+  );
 
-    toggleModal();
-  }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
-  const toggleModal = () => $modal((prev) => !prev);
+  const closeModal = () => removeParams(["modal"]);
 
   return (
     <div className={"flex items-center w-full md:gap-3 gap-1 flex-wrap py-3"}>
-      {!images.length ? (
+      {isPending && <Loading />}
+      {!images[stateKey]?.length ? (
         <div
           className={"w-14 h-14 rounded-full overflow-hidden cursor-pointer"}
         >
@@ -54,13 +75,12 @@ const UploadImages = () => {
           />
         </div>
       ) : (
-        images.map((item, idx) => (
-          <div
-            className={"w-14 h-14 cursor-pointer relative"}
-            key={item.name + idx}
-          >
+        images[stateKey]?.map((item) => (
+          <div className={"w-14 h-14 cursor-pointer relative"} key={item.id}>
             <div
-              onClick={() => dispatch(removeImage(idx))}
+              onClick={() =>
+                dispatch(removeImage({ key: stateKey, value: item.id }))
+              }
               className={
                 "absolute -top-1 -right-1 border border-black rounded-full p-1 w-max z-10"
               }
@@ -68,16 +88,16 @@ const UploadImages = () => {
               <img src={cross} className={"w-3 h-3"} alt={"close"} />
             </div>
             <img
-              src={item.url}
+              src={`${baseURL}/${item.url}`}
               className={"w-full h-full rounded-full"}
-              alt={`${item.name}`}
+              alt={`${item.url}`}
             />
           </div>
         ))
       )}
 
       <div
-        onClick={toggleModal}
+        onClick={openModal}
         className={
           "w-14 h-14 rounded-full overflow-hidden cursor-pointer text-3xl font-bold flex justify-center items-center bg-gray-300"
         }
@@ -86,13 +106,13 @@ const UploadImages = () => {
       </div>
 
       <Modal
-        isOpen={modal}
-        onClose={toggleModal}
+        isOpen={!!modal?.toString()}
+        onClose={closeModal}
         className={"!max-w-3xl flex items-center justify-center"}
       >
         <div className={"relative h-full max-w-3xl w-full flex flex-1"}>
           <div
-            onClick={toggleModal}
+            onClick={closeModal}
             className={
               "absolute top-4 right-4 z-10 border border-black rounded-full bg-white p-2 h-max"
             }
