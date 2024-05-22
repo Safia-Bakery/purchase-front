@@ -49,7 +49,7 @@ const localization = {
       status: "Статус",
       open: "Открыть",
       download_pdf: "скачать PDF",
-      send_request: "Сотрудничество",
+      send_request: "Сотрудничать",
       open_table: "открыть таблицу",
       our_mail: "Наша почта",
 
