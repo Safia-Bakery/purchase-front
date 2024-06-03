@@ -3,7 +3,7 @@ import Suspend from "./components/Suspend";
 import { lazy, useEffect } from "react";
 import { useAppSelector } from "./store/rootConfig";
 import { langSelector } from "./store/reducers/language";
-import i18n from "./localization";
+import i18n from "./store/localization";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
