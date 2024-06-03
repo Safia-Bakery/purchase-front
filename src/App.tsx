@@ -21,7 +21,7 @@ const History = lazy(() => import("src/pages/History"));
 const Success = lazy(() => import("src/pages/Success"));
 const HomeRoutes = lazy(() => import("src/components/HomeRoutes"));
 
-function App() {
+const App = () => {
   const lang = useAppSelector(langSelector);
 
   useEffect(() => {
@@ -126,6 +126,6 @@ function App() {
       </Route>
     </Routes>
   );
-}
+};
 
 export default App;

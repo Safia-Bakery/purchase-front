@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import cl from "classnames";
 
 import userIcon from "/icons/user.svg";
-import logoutIcon from "/icons/logout.svg";
+
 import Button from "../Button";
 import burger from "/icons/burger.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";

@@ -6,7 +6,7 @@ import MainInput from "src/components/BaseInputs/MainInput";
 import logo from "/icons/safia-logo.svg";
 import MaskedInput from "src/components/BaseInputs/MaskedInput";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { fixedString } from "src/utils/helper";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch } from "src/store/rootConfig";
@@ -15,7 +15,6 @@ import loginMutation from "src/hooks/mutations/login";
 import Loading from "src/components/Loader";
 
 const LoginLayout = () => {
-  const navigate = useNavigate();
   const { t } = useTranslation();
   const [error, $error] = useState(false);
   const dispatch = useAppDispatch();
@@ -38,13 +37,11 @@ const LoginLayout = () => {
       {
         onSuccess: ({ data }: any) => {
           dispatch(loginHandler(data.access_token));
-          navigate("/");
         },
         onError: () => $error(true),
       }
     );
   };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col relative">
       <Link to={"/"} className="absolute -top-36 -right-20">

@@ -2,15 +2,17 @@ import bg from "/images/login-bg.png";
 import logo from "/icons/safia-logo-white.svg";
 import { Outlet } from "react-router-dom";
 import { useAppSelector } from "src/store/rootConfig";
-import { tokenSelector } from "src/store/reducers/auth";
+import { lastUrlSelector, tokenSelector } from "src/store/reducers/auth";
 import { useEffect } from "react";
 import useQueryString from "src/hooks/useQueryString";
 
 const AuthLayoout = () => {
   const token = useAppSelector(tokenSelector);
   const is_reset = useQueryString("is_reset");
+  const lastUrl = useAppSelector(lastUrlSelector);
+
   useEffect(() => {
-    if (!!token && !is_reset) window.location.replace("/");
+    if (!!token && !is_reset) window.location.replace(lastUrl);
   }, [token]);
 
   return (

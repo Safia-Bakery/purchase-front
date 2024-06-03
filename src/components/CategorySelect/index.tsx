@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useAppDispatch } from "src/store/rootConfig";
 import { logoutHandler } from "src/store/reducers/auth";
 import Loading from "../Loader";
+
 type Props = {
   updateref?: (val: string | number) => void;
 };
