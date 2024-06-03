@@ -18,7 +18,10 @@ export const imageReducer = createSlice({
         payload,
       }: PayloadAction<{ key: keyof FileState; value: FileUploadRes["files"] }>
     ) => {
-      state[payload.key]! = payload.value;
+      if (!!state[payload.key]?.length) {
+        const updated = state[payload.key];
+        state[payload.key] = [...updated!, ...payload.value];
+      } else state[payload.key] = payload.value;
     },
     removeImage: (
       state,

@@ -11,7 +11,6 @@ import { FileState, ModalTypes, OrderType } from "src/utils/types";
 import family from "/images/family.png";
 import BaseInput from "src/components/BaseInputs";
 import MainInput from "src/components/BaseInputs/MainInput";
-import MainFileUpload from "src/components/BaseInputs/MainFileUpload";
 import CategorySelect from "src/components/CategorySelect";
 import MainCheckBox from "src/components/MainCheckBox";
 import UploadImages from "src/components/UploadImages";
@@ -107,7 +106,7 @@ const Cooperate = () => {
         </BaseInput>
         <BaseInput label={t("order_brand")} error={errors.brend}>
           <MainInput
-            register={register("brand", { required: t("required_field") })}
+            register={register("brend", { required: t("required_field") })}
             placeholder={t("order_input")}
           />
         </BaseInput>
@@ -130,22 +129,6 @@ const Cooperate = () => {
             />
           </BaseInput>
         ))}
-
-        {/* <BaseInput label={t("order_certificates")}>
-          <UploadImages
-            keyObj={ModalTypes.sertificates}
-            key={ModalTypes.sertificates}
-            openModal={() => handleModal(ModalTypes.sertificates)}
-          />
-        </BaseInput>
-
-        <BaseInput label={t("product_images")}>
-          <UploadImages
-            keyObj={ModalTypes.product_images}
-            key={ModalTypes.product_images}
-            openModal={() => handleModal(ModalTypes.product_images)}
-          />
-        </BaseInput> */}
 
         <BaseInput label={t("order_you_are")}>
           <MainSelect updateRef={updateRole} values={infoArr} />

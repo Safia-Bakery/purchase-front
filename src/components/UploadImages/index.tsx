@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "src/store/rootConfig.ts";
 import Modal from "src/components/Modal";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import cross from "/icons/crossBlack.svg";
 import { useDropzone } from "react-dropzone";
 import drag_img from "/icons/add-folder.svg";
@@ -21,6 +21,7 @@ import useQueryString from "src/hooks/useQueryString";
 import { useRemoveParams } from "src/hooks/useCustomNavigate";
 import { baseURL } from "src/api/baseApi";
 import Loading from "../Loader";
+import removeFileMutation from "src/hooks/mutations/removeFile";
 interface Props {
   openModal: () => void;
   keyObj: ModalTypes;
@@ -33,7 +34,13 @@ const UploadImages = ({ openModal, keyObj: key }: Props) => {
   const removeParams = useRemoveParams();
   const images = useAppSelector(imageSelector);
   const { mutate, isPending } = fileUploadMutation();
+  const { mutate: removeFile } = removeFileMutation();
   const stateKey = ModalTypes[key] as keyof FileState;
+
+  const removeImages = (value: number) => () => {
+    dispatch(removeImage({ key: stateKey, value }));
+    removeFile({ id: value });
+  };
 
   const onDrop = useCallback(
     (files: any) => {
@@ -57,6 +64,36 @@ const UploadImages = ({ openModal, keyObj: key }: Props) => {
     [modal]
   );
 
+  const renderImages = useMemo(() => {
+    return !images[stateKey]?.length ? (
+      <div className={"w-14 h-14 rounded-full overflow-hidden cursor-pointer"}>
+        <img
+          src={"/images/safia-logo.png"}
+          className={"w-full h-full opacity-40"}
+          alt={"upload-image"}
+        />
+      </div>
+    ) : (
+      images[stateKey]?.map((item) => (
+        <div className={"w-14 h-14 cursor-pointer relative"} key={item.id}>
+          <div
+            onClick={removeImages(item.id)}
+            className={
+              "absolute -top-1 -right-1 border border-black rounded-full p-1 w-max z-10"
+            }
+          >
+            <img src={cross} className={"w-3 h-3"} alt={"close"} />
+          </div>
+          <img
+            src={`${baseURL}/${item.url}`}
+            className={"w-full h-full rounded-full"}
+            alt={`${item.url}`}
+          />
+        </div>
+      ))
+    );
+  }, [images, stateKey]);
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const closeModal = () => removeParams(["modal"]);
@@ -64,38 +101,7 @@ const UploadImages = ({ openModal, keyObj: key }: Props) => {
   return (
     <div className={"flex items-center w-full md:gap-3 gap-1 flex-wrap py-3"}>
       {isPending && <Loading />}
-      {!images[stateKey]?.length ? (
-        <div
-          className={"w-14 h-14 rounded-full overflow-hidden cursor-pointer"}
-        >
-          <img
-            src={"/images/safia-logo.png"}
-            className={"w-full h-full opacity-40"}
-            alt={"upload-image"}
-          />
-        </div>
-      ) : (
-        images[stateKey]?.map((item) => (
-          <div className={"w-14 h-14 cursor-pointer relative"} key={item.id}>
-            <div
-              onClick={() =>
-                dispatch(removeImage({ key: stateKey, value: item.id }))
-              }
-              className={
-                "absolute -top-1 -right-1 border border-black rounded-full p-1 w-max z-10"
-              }
-            >
-              <img src={cross} className={"w-3 h-3"} alt={"close"} />
-            </div>
-            <img
-              src={`${baseURL}/${item.url}`}
-              className={"w-full h-full rounded-full"}
-              alt={`${item.url}`}
-            />
-          </div>
-        ))
-      )}
-
+      {renderImages}
       <div
         onClick={openModal}
         className={
