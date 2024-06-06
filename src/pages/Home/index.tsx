@@ -69,9 +69,9 @@ const Home = () => {
   return (
     <>
       <section>
-        <div className="relative">
+        <div className="relative lg:h-[65svh] overflow-hidden ">
           <MainSlider />
-          <Container className="relative lg:h-[60vh]">
+          <Container className="lg:absolute top-0 bottom-0 h-full z-10">
             <div className="lg:absolute top-1/2 lg:-translate-y-1/2 lg:p-10 z-10 bg-white rounded-xl">
               <h1 className="uppercase lg:text-5xl text-2xl lg:my-0 my-3">
                 {t("about_company")}

@@ -34,7 +34,7 @@ const Header = () => {
         </Link>
 
         <nav className="container lg:flex hidden items-center justify-between flex-[3]">
-          <ul className="flex gap-x-8">
+          <ul className="flex gap-x-8 items-center">
             {Object.entries(lib)?.map((item) => (
               <li key={item[0]} className="text-lg">
                 <HeaderRouter href={`${item[0]}`}>{t(item[1])}</HeaderRouter>

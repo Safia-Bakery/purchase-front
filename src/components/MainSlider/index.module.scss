@@ -1,0 +1,14 @@
+.bg {
+  background: url("/images/slider1.png") center no-repeat;
+  z-index: 5;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  min-height: 380px;
+
+  @media (max-width: 920px) {
+    background-size: cover;
+    position: static;
+    min-height: 160px;
+  }
+}
