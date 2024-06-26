@@ -212,12 +212,12 @@ const Home = () => {
             />
           </div>
 
-          <div className="lg:pt-36 pt-14" id={"our_suppliers"}>
+          {/* <div className="lg:pt-36 pt-14" id={"our_suppliers"}>
             <h2 className="lg:text-3xl text-xl uppercase z-10 absolute lg:left-1/2 lg:-translate-x-1/2 lg:-mt-14">
               {t("our_suppliers")}
             </h2>
             <SuppliersSlider data={suppliersSlider} />
-          </div>
+          </div> */}
         </Container>
 
         <div
