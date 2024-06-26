@@ -76,7 +76,7 @@ const Home = () => {
               <h1 className="uppercase md:max-w-[430px] lg:text-5xl text-2xl lg:my-0 my-3">
                 {t("will_you_cooperate")}
               </h1>
-              <p className="md:max-w-[430px] uppercase w-full text-textGray lg:my-6 ">
+              <p className="md:max-w-[430px] w-full text-textGray lg:my-6 ">
                 {t("cooperate_descr")}
               </p>
               <Link to={renderUrl}>
