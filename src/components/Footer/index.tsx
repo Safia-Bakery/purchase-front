@@ -19,7 +19,7 @@ const Footer = () => {
     <>
       <div className="w-full px-4 mb-8">
         <img
-          className="lg:mx-auto lg:my-14 family_text"
+          className="lg:mx-auto lg:my-14 family_text max-h-28 max-w-3xl w-full h-full"
           src={familyText}
           alt={"And together we will give happiness to our world!"}
         />

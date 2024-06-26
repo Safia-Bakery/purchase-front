@@ -73,11 +73,11 @@ const Home = () => {
           <MainSlider />
           <Container className="lg:absolute top-0 bottom-0 h-full z-10">
             <div className="lg:absolute top-1/2 lg:-translate-y-1/2 lg:p-10 z-10 bg-white rounded-xl">
-              <h1 className="uppercase lg:text-5xl text-2xl lg:my-0 my-3">
-                {t("about_company")}
+              <h1 className="uppercase md:max-w-[430px] lg:text-5xl text-2xl lg:my-0 my-3">
+                {t("will_you_cooperate")}
               </h1>
-              <p className="md:max-w-[430px] w-full text-textGray lg:my-6 ">
-                {t("description")}
+              <p className="md:max-w-[430px] uppercase w-full text-textGray lg:my-6 ">
+                {t("cooperate_descr")}
               </p>
               <Link to={renderUrl}>
                 <Button className="w-64 lg:mt-0 mt-3">
@@ -92,12 +92,12 @@ const Home = () => {
       <section className="lg:pt-10">
         <Container>
           <div className="flex justify-between lg:pt-20" id={"purchasements"}>
-            <div className="flex flex-col flex-1 mt-3">
+            <div className="flex flex-col flex-1 mt-3 justify-center">
               <h2 className="text-3xl">{t("company_purchases")}</h2>
               <p className="lg:text-lg text-xs mt-4 mb-6 text-textGray">
                 {t("company_descr")}
               </p>
-              <div className="flex">
+              {/* <div className="flex">
                 <div className="flex flex-1 flex-col">
                   <h4 className="mb-4 mt-4">{t("purchase_regulations")}</h4>
                   <Button className="w-56 mb-8 ">{t("download_pdf")}</Button>
@@ -115,7 +115,7 @@ const Home = () => {
                     className="rounded-full"
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="hidden flex-1 items-center lg:flex justify-center">
               <img
@@ -133,7 +133,7 @@ const Home = () => {
             <AdvantagesSlider data={advantageSlideArr} />
           </div>
 
-          <div className="lg:pt-24 pt-12 flex items-center flex-col">
+          {/* <div className="lg:pt-24 pt-12 flex items-center flex-col">
             <h2 className="lg:text-3xl text-xl uppercase text-center max-w-[490px] w-full">
               {t("actual_title")}
             </h2>
@@ -142,7 +142,7 @@ const Home = () => {
             </p>
 
             <Button className="w-56">{t("open_table")}</Button>
-          </div>
+          </div> */}
 
           <div
             className="flex lg:flex-row flex-col justify-between items-center py-20 gap-4"
