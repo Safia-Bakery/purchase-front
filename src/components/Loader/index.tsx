@@ -6,14 +6,19 @@ import safiaLogo from "/images/safia-logo.png";
 interface Props {
   is_static?: boolean;
   className?: string;
+  overlayClassName?: string;
 }
 
-const Loading: FC<Props> = ({ is_static = false, className }) => {
+const Loading: FC<Props> = ({
+  is_static = false,
+  className,
+  overlayClassName,
+}) => {
   return (
     <div
       className={cl(className, styles.wrap, { [styles.absolute]: !is_static })}
     >
-      <div className={styles.overlay} />
+      <div className={cl(styles.overlay, overlayClassName)} />
       <img
         className={styles.loadingCircle}
         src={safiaLogo}

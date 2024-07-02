@@ -23,7 +23,7 @@ const CategorySelect = ({ updateref: forwardedRef }: Props) => {
     }
   }, [isError]);
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <Loading className="!opacity-100" />;
 
   return (
     <BaseInput label={t("order_category")}>
