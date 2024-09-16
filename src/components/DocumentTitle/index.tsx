@@ -40,7 +40,7 @@ const DocumentTitle = ({
         <meta name="twitter:description" content={description} />
         <meta
           name="twitter:image"
-          content={"https://purchase.safiabakery.uz/" + logo}
+          content={"https://purchase.safiabakery.uz" + logo}
         />
         {/* <meta name="twitter:url" content={url} /> */}
 

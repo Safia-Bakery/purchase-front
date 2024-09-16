@@ -38,7 +38,13 @@ const AdvantagesSlider = () => {
   const { t } = useTranslation();
 
   return (
-    <Box flex={1} justifyContent={"space-between"} display={"flex"} gap={2}>
+    <Box
+      flex={1}
+      justifyContent={"space-between"}
+      display={"flex"}
+      gap={2}
+      className="lg:!flex-row !flex-col"
+    >
       {advantageSlideArr.map((data, idx) => (
         <Box
           key={data.title}
