@@ -9,7 +9,7 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  border-radius: 50px;
+  border-radius: 50px !important;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
@@ -19,12 +19,12 @@
   }
 }
 .primary {
-  color: #ffffff;
+  color: #ffffff !important;
   opacity: 1;
-  background-color: #dcc38b;
+  background-color: #dcc38b !important;
 }
 .white {
-  color: black;
+  color: black !important;
   opacity: 1;
-  background-color: white;
+  background-color: white !important;
 }

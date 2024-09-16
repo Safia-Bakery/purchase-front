@@ -17,6 +17,8 @@ import UploadImages from "src/components/UploadImages";
 import { useAppDispatch, useAppSelector } from "src/store/rootConfig.ts";
 import { clearImages, imageSelector } from "src/store/reducers/images.ts";
 import { useNavigateParams } from "src/hooks/useCustomNavigate";
+import AnimationBlock from "src/components/AnimatedBox";
+import DocumentTitle from "src/components/DocumentTitle";
 
 const infoArr = [
   { name_uz: "Ishlab chiqaruvchi", name_ru: "Производитель", id: 1 },
@@ -84,59 +86,84 @@ const Cooperate = () => {
       }
     );
   };
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-1 lg:gap-20 gap-6 lg:flex-row flex-col items-center pb-10"
     >
+      <DocumentTitle title={t("cooperation") + " - Safia"} />
       <div className="flex flex-1 max-w-[750px] h-full w-full">
         <img src={family} alt={"making"} className="w-full h-full rounded-lg" />
       </div>
 
       <div className="flex flex-1 lg:flex-none lg:gap-6 gap-3 flex-col lg:w-[35vw] w-full px-3">
-        <h1 className="lg:text-5xl uppercase text-2xl">
-          {t("will_you_cooperate")}
-        </h1>
-        <p>{t("order_descr")}</p>
-        <BaseInput label={t("order_name")} error={errors.product}>
-          <MainInput
-            register={register("product", { required: t("required_field") })}
-            placeholder={t("order_input")}
-          />
-        </BaseInput>
-        <BaseInput label={t("order_brand")} error={errors.brend}>
-          <MainInput
-            register={register("brend", { required: t("required_field") })}
-            placeholder={t("order_input")}
-          />
-        </BaseInput>
-
-        <BaseInput label={t("price_with_nds")} error={errors.price}>
-          <MainInput
-            register={register("price", { required: t("required_field") })}
-            placeholder={t("order_input")}
-            type="number"
-          />
-        </BaseInput>
-
-        <CategorySelect updateref={updateCategory} />
-
-        {UploadImagesArr.map((item) => (
-          <BaseInput label={t(item.label)} key={item.modal}>
-            <UploadImages
-              openModal={() => handleModal(item.modal)}
-              keyObj={item.modal}
+        <AnimationBlock>
+          <h1 className="lg:text-5xl uppercase text-2xl">
+            {t("will_you_cooperate")}
+          </h1>
+          <p>{t("order_descr")}</p>
+        </AnimationBlock>
+        <AnimationBlock delay={1}>
+          <BaseInput label={t("order_name")} error={errors.product}>
+            <MainInput
+              register={register("product", { required: t("required_field") })}
+              placeholder={t("order_input")}
             />
           </BaseInput>
+        </AnimationBlock>
+
+        <AnimationBlock delay={2}>
+          <BaseInput label={t("order_brand")} error={errors.brend}>
+            <MainInput
+              register={register("brend", { required: t("required_field") })}
+              placeholder={t("order_input")}
+            />
+          </BaseInput>
+        </AnimationBlock>
+
+        <AnimationBlock delay={3}>
+          <BaseInput label={t("price_with_nds")} error={errors.price}>
+            <MainInput
+              register={register("price", { required: t("required_field") })}
+              placeholder={t("order_input")}
+              type="number"
+            />
+          </BaseInput>
+        </AnimationBlock>
+
+        <AnimationBlock delay={4}>
+          <CategorySelect updateref={updateCategory} />
+        </AnimationBlock>
+
+        {UploadImagesArr.map((item, index) => (
+          <BaseInput label={t(item.label)} key={item.modal}>
+            <AnimationBlock delay={index + 2}>
+              <UploadImages
+                openModal={() => handleModal(item.modal)}
+                keyObj={item.modal}
+              />
+            </AnimationBlock>
+          </BaseInput>
         ))}
+        <AnimationBlock>
+          <BaseInput label={t("order_you_are")} className="w-full">
+            <MainSelect
+              updateRef={updateRole}
+              values={infoArr}
+              className="w-full"
+            />
+          </BaseInput>
+        </AnimationBlock>
+        <AnimationBlock>
+          <MainCheckBox forwardedRef={is_worker} label={"order_worked_with"} />
+        </AnimationBlock>
 
-        <BaseInput label={t("order_you_are")}>
-          <MainSelect updateRef={updateRole} values={infoArr} />
-        </BaseInput>
-
-        <MainCheckBox forwardedRef={is_worker} label={"order_worked_with"} />
-
-        <Button type="submit">{t("next")}</Button>
+        <AnimationBlock>
+          <Button className="w-full" type="submit">
+            {t("next")}
+          </Button>
+        </AnimationBlock>
       </div>
 
       {isPending && <Loading />}

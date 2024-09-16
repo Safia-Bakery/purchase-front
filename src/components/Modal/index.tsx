@@ -1,6 +1,12 @@
-import { FC, ReactNode, useEffect } from "react";
-import clx from "classnames";
-import styles from "./index.module.scss";
+import { FC, ReactNode } from "react";
+import cross from "/icons/crossBlack.svg";
+import {
+  Modal as ChakraModal,
+  ModalOverlay,
+  ModalContent,
+  Image,
+  DrawerBody,
+} from "@chakra-ui/react";
 
 interface Props {
   isOpen: boolean;
@@ -8,45 +14,41 @@ interface Props {
   onClose?: () => void;
   className?: string;
   children: ReactNode;
+  overlayClassName?: string;
+  title?: string;
 }
 
 const Modal: FC<Props> = ({
   isOpen,
   onClose = () => null,
-  centered = true,
   children,
   className,
+  overlayClassName,
 }) => {
-  useEffect(() => {
-    const closeOnEscapePressed = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        onClose();
-      }
-    };
-    window.addEventListener("keydown", closeOnEscapePressed);
-    return () => window.removeEventListener("keydown", closeOnEscapePressed);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
-    <>
-      <div
-        className={clx(styles.overlay, { [styles.closed]: !isOpen })}
-        onClick={onClose}
-      />
-      {isOpen && (
-        <div
-          className={clx(
-            className,
-            { [styles.centered]: centered },
-            styles.modal,
-            [isOpen ? styles.fadeIn : styles.fadeOut]
-          )}
-        >
-          <div className={'absolute inset-0'}>{children}</div>
-        </div>
-      )}
-    </>
+    <ChakraModal isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay className={overlayClassName} />
+      <ModalContent
+        height={"max-content"}
+        minH={350}
+        className={className}
+        maxW={768}
+        w={"100%"}
+      >
+        <button onClick={onClose}>
+          <div
+            className={
+              "absolute top-4 right-4 z-10 border border-black rounded-full bg-white p-2 h-max"
+            }
+          >
+            <Image src={cross} alt="close" />
+          </div>
+        </button>
+        <DrawerBody p={[4, 3]} height={"100%"} w={"100%"} display={"flex"}>
+          {children}
+        </DrawerBody>
+      </ModalContent>
+    </ChakraModal>
   );
 };
 

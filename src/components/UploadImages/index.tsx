@@ -105,7 +105,7 @@ const UploadImages = ({ openModal, keyObj: key }: Props) => {
       <div
         onClick={openModal}
         className={
-          "w-14 h-14 rounded-full overflow-hidden cursor-pointer text-3xl font-bold flex justify-center items-center bg-gray-300"
+          "w-14 h-14 leading-7 rounded-full overflow-hidden cursor-pointer text-3xl font-bold flex justify-center items-center bg-gray-300"
         }
       >
         +
@@ -114,40 +114,30 @@ const UploadImages = ({ openModal, keyObj: key }: Props) => {
       <Modal
         isOpen={!!modal?.toString()}
         onClose={closeModal}
-        className={"!max-w-3xl flex items-center justify-center"}
+        title="upload_image"
+        className={"flex items-center justify-center"}
       >
-        <div className={"relative h-full max-w-3xl w-full flex flex-1"}>
+        <div className={"relative w-full flex flex-1"}>
           <div
-            onClick={closeModal}
-            className={
-              "absolute top-4 right-4 z-10 border border-black rounded-full bg-white p-2 h-max"
-            }
+            {...getRootProps()}
+            className="flex h-full w-full flex-1 bg-white rounded-xl border border-borderColor p-4 items-center justify-center relative"
           >
-            <img src={cross} alt={"close-modal"} />
-          </div>
-
-          <div className={"h-full w-full"}>
-            <div
-              {...getRootProps()}
-              className="flex h-full w-full flex-1 bg-white rounded-xl border border-borderColor p-4 items-center justify-center relative"
-            >
-              <input
-                onChange={onDrop}
-                {...getInputProps()}
-                multiple
-                accept="image/*"
-                className="h-full w-full !flex opacity-0 absolute inset-0"
-              />
-              {isDragActive ? (
-                <div className="h-full w-full items-center justify-center flex bg-green-400">
-                  <img src={drag_img} alt="dragFile" className="w-40 h-40" />
-                </div>
-              ) : (
-                <div className="flex h-full w-full justify-center items-center border border-borderColor text-[#00000063]">
-                  {t("drag_files")}
-                </div>
-              )}
-            </div>
+            <input
+              onChange={onDrop}
+              {...getInputProps()}
+              multiple
+              accept="image/*"
+              className="h-full w-full !flex opacity-0 absolute inset-0"
+            />
+            {isDragActive ? (
+              <div className="h-full w-full items-center justify-center flex bg-green-400">
+                <img src={drag_img} alt="dragFile" className="w-40 h-40" />
+              </div>
+            ) : (
+              <div className="flex h-full w-full justify-center items-center border border-borderColor text-[#00000063]">
+                {t("drag_files")}
+              </div>
+            )}
           </div>
         </div>
       </Modal>

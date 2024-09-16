@@ -16,7 +16,7 @@ const Header = () => {
     suppliers: "suppliers",
     expectation: "expectation",
     cooperation: "cooperation",
-    our_suppliers: "our_suppliers",
+    // our_suppliers: "our_suppliers",
   };
 
   return (

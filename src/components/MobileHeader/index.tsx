@@ -40,7 +40,7 @@ const MobileHeader = ({ items }: Props) => {
       <Button
         onClick={toggleActive}
         btnType={BtnTypes.white}
-        className="lg:hidden flex items-center justify-center z-20"
+        className="lg:!hidden !flex items-center justify-center z-20"
       >
         <img src={burger} alt={"open-header"} />
       </Button>

@@ -8,15 +8,20 @@ import { Provider } from "react-redux";
 import { persistor, store } from "./store/rootConfig.ts";
 import { PersistGate } from "redux-persist/integration/react";
 import Loading from "./components/Loader/index.tsx";
+import { ChakraProvider } from "@chakra-ui/react";
+import DocumentTitle from "./components/DocumentTitle/index.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
-    <PersistGate persistor={persistor} loading={<Loading />}>
-      <BrowserRouter>
-        <QueryClientProvider client={queryClient}>
-          <App />
-        </QueryClientProvider>
-      </BrowserRouter>
-    </PersistGate>
+    <ChakraProvider>
+      <DocumentTitle title={""} />
+      <PersistGate persistor={persistor} loading={<Loading />}>
+        <BrowserRouter>
+          <QueryClientProvider client={queryClient}>
+            <App />
+          </QueryClientProvider>
+        </BrowserRouter>
+      </PersistGate>
+    </ChakraProvider>
   </Provider>
 );
